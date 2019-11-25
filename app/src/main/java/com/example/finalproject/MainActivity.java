@@ -15,14 +15,17 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 //import android.view.View;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 //extra
+import android.support.v4.app.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.view.View;
+import android.widget.Toast;
 
 //import java.io.BufferedWriter;
 //import java.io.File;
@@ -36,6 +39,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
     private static final String TAG = "MainActivity";
+    private Button button;
     private TextView Xtext, Ytext, Ztext, ntext, textX, textY, textZ;
    // private Sensor mySensor;
     private Sensor SA;
@@ -57,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SG = SM.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
        // mySensor= SM.getDefaultSensor(Sensor.TYPE_ALL);
-        SM.registerListener(this, SA, SensorManager.SENSOR_DELAY_NORMAL);
-        SM.registerListener(this,SG,SensorManager.SENSOR_DELAY_NORMAL);
+        SM.registerListener(this, SA, SensorManager.SENSOR_DELAY_GAME);
+        SM.registerListener(this,SG,SensorManager.SENSOR_DELAY_GAME);
         Log.i(TAG,"onCreate: Registered sensors Listener");
 
         Xtext= (TextView)findViewById(R.id.Xtext);
@@ -69,8 +73,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         textY= (TextView)findViewById(R.id.textY);
         textZ= (TextView)findViewById(R.id.textZ);
 
-    }
+        button = findViewById(R.id.button);
+       // button.setOnClickListener((View.OnClickListener) this);
 
+    }
+    public void onclick_function(){
+
+        Context context = getApplicationContext();
+        CharSequence text = "Hello toast!";
+
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
     @Override
     public void onSensorChanged(SensorEvent event) {
        Xtext.setText("X: "+ event.values[0]);
@@ -79,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
       // ntext.setText (event.sensor.getName());
         String sensorName = event.sensor.getName();
 
-        Log.d(TAG, sensorName + ": X: " + event.values[0] + "; Y: " + event.values[1] + "; Z: " + event.values[2] + ";");
+        Log.i(TAG, sensorName + ": X: " + event.values[0] + "; Y: " + event.values[1] + "; Z: " + event.values[2] + ";");
 
         float x = event.values[0];
         float y = event.values[1];
