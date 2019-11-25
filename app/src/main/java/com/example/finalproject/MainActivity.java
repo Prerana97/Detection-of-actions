@@ -36,9 +36,13 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
     private static final String TAG = "MainActivity";
-    private TextView Xtext, Ytext, Ztext;
-    private Sensor mySensor;
+    private TextView Xtext, Ytext, Ztext, ntext, textX, textY, textZ;
+   // private Sensor mySensor;
+    private Sensor SA;
+    private Sensor SG;
+
     private SensorManager SM;
+
     //Timer timer;
 
 
@@ -49,41 +53,59 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.i(TAG,"onCreate: Initializing Sensor Services");
 
         SM =(SensorManager)getSystemService(SENSOR_SERVICE);
+        SA = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        SG = SM.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
-        mySensor= SM.getDefaultSensor(Sensor.TYPE_ALL);
-        SM.registerListener(this, mySensor, SensorManager.SENSOR_DELAY_NORMAL);
+       // mySensor= SM.getDefaultSensor(Sensor.TYPE_ALL);
+        SM.registerListener(this, SA, SensorManager.SENSOR_DELAY_NORMAL);
+        SM.registerListener(this,SG,SensorManager.SENSOR_DELAY_NORMAL);
         Log.i(TAG,"onCreate: Registered sensors Listener");
 
         Xtext= (TextView)findViewById(R.id.Xtext);
         Ytext= (TextView)findViewById(R.id.Ytext);
         Ztext= (TextView)findViewById(R.id.Ztext);
+       // ntext= (TextView)findViewById(R.id.ntext);
+        textX= (TextView)findViewById(R.id.textX);
+        textY= (TextView)findViewById(R.id.textY);
+        textZ= (TextView)findViewById(R.id.textZ);
 
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        Xtext.setText("X: "+ event.values[0]);
-        Ytext.setText("Y: "+ event.values[1]);
-        Ztext.setText("Z: "+ event.values[2]);
+       Xtext.setText("X: "+ event.values[0]);
+       Ytext.setText("Y: "+ event.values[1]);
+       Ztext.setText("Z: "+ event.values[2]);
+      // ntext.setText (event.sensor.getName());
+        String sensorName = event.sensor.getName();
 
-        Log.i(TAG, "onSensorChanged: X: "+ event.values[0] + " Y: "+ event.values[1] + " Z: "+ event.values[2]);
+        Log.d(TAG, sensorName + ": X: " + event.values[0] + "; Y: " + event.values[1] + "; Z: " + event.values[2] + ";");
+
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        textX.setText("GX : " + (int) x + " rad/s");
+        textY.setText("GY : " + (int) y + " rad/s");
+        textZ.setText("GZ : " + (int) z + " rad/s");
+
+       // Log.i(TAG, "onSensorChanged: X: "+ event.values[0] + " Y: "+ event.values[1] + " Z: "+ event.values[2]);
         //timer.scheduleAtFixedRate(new TimerTask() {
-          //  @Override
-          //  public void run() {
-                String FILENAME = "log_weight.csv";
-                //  String filePath= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/C:/Users/Prerana";
-                String entry = Xtext.getText().toString() + "," + Ytext.getText().toString() + "," + Ztext.getText().toString();
-                try {
+        //  @Override
+        //  public void run() {
+      /*  String FILENAME = "log_weight.csv";
+        //  String filePath= Environment.getExternalStorageDirectory().getAbsolutePath()+ "/C:/Users/Prerana";
+        String entry = Xtext.getText().toString() + "," + Ytext.getText().toString() + "," + Ztext.getText().toString();
+        try {
 
-                    FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
-                    out.write(entry.getBytes());
-                    out.close();
+            FileOutputStream out = openFileOutput(FILENAME, Context.MODE_APPEND);
+            out.write(entry.getBytes());
+            out.close();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-           // }
-       // }, 20000, 20000);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // }
+        // }, 20000, 20000);*/
     }
      /*  timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -114,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-  //  public void savelog() {}
+    //  public void savelog() {}
 
     /*public void appendLog(String text)
     {
