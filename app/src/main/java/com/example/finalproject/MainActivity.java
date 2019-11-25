@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 //import android.os.Environment;
 import android.util.Log;
@@ -27,25 +28,17 @@ import java.util.TimerTask;
 import android.view.View;
 import android.widget.Toast;
 
-//import java.io.BufferedWriter;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.io.OutputStream;
 
-//import static java.lang.System.out;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener{
+public class MainActivity extends AppCompatActivity{
     private static final String TAG = "MainActivity";
     private Button button;
-    private TextView Xtext, Ytext, Ztext, ntext, textX, textY, textZ;
-   // private Sensor mySensor;
-    private Sensor SA;
-    private Sensor SG;
-
-    private SensorManager SM;
+   private TextView Xtext, Ytext, Ztext, ntext, textX, textY, textZ;
+//   // private Sensor mySensor;
+//    private Sensor SA;
+//    private Sensor SG;
+//
+//    private SensorManager SM;
 
     //Timer timer;
 
@@ -54,24 +47,42 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MyService.class);
+                switch (view.getId()) {
+                    case R.id.service_start:
+                        //starts service for the given Intent
+                        startService(intent);
+                        break;
+                    case R.id.service_stop:
+                        //stops service for the given Intent
+                        stopService(intent);
+                        break;
+                }
+            }
+        };
+        findViewById(R.id.service_start).setOnClickListener(listener);
+        findViewById(R.id.service_stop).setOnClickListener(listener);
         Log.i(TAG,"onCreate: Initializing Sensor Services");
 
-        SM =(SensorManager)getSystemService(SENSOR_SERVICE);
-        SA = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        SG = SM.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+//        SM =(SensorManager)getSystemService(SENSOR_SERVICE);
+//        SA = SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+//        SG = SM.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+//
+//       // mySensor= SM.getDefaultSensor(Sensor.TYPE_ALL);
+//        SM.registerListener(this, SA, SensorManager.SENSOR_DELAY_GAME);
+//        SM.registerListener(this,SG,SensorManager.SENSOR_DELAY_GAME);
+//        Log.i(TAG,"onCreate: Registered sensors Listener");
 
-       // mySensor= SM.getDefaultSensor(Sensor.TYPE_ALL);
-        SM.registerListener(this, SA, SensorManager.SENSOR_DELAY_GAME);
-        SM.registerListener(this,SG,SensorManager.SENSOR_DELAY_GAME);
-        Log.i(TAG,"onCreate: Registered sensors Listener");
-
-        Xtext= (TextView)findViewById(R.id.Xtext);
-        Ytext= (TextView)findViewById(R.id.Ytext);
-        Ztext= (TextView)findViewById(R.id.Ztext);
-       // ntext= (TextView)findViewById(R.id.ntext);
-        textX= (TextView)findViewById(R.id.textX);
-        textY= (TextView)findViewById(R.id.textY);
-        textZ= (TextView)findViewById(R.id.textZ);
+//        Xtext= (TextView)findViewById(R.id.Xtext);
+//        Ytext= (TextView)findViewById(R.id.Ytext);
+//        Ztext= (TextView)findViewById(R.id.Ztext);
+//       // ntext= (TextView)findViewById(R.id.ntext);
+//        textX= (TextView)findViewById(R.id.textX);
+//        textY= (TextView)findViewById(R.id.textY);
+//        textZ= (TextView)findViewById(R.id.textZ);
 
         button = findViewById(R.id.button);
        // button.setOnClickListener((View.OnClickListener) this);
@@ -87,23 +98,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-       Xtext.setText("X: "+ event.values[0]);
-       Ytext.setText("Y: "+ event.values[1]);
-       Ztext.setText("Z: "+ event.values[2]);
-      // ntext.setText (event.sensor.getName());
-        String sensorName = event.sensor.getName();
-
-        Log.i(TAG, sensorName + ": X: " + event.values[0] + "; Y: " + event.values[1] + "; Z: " + event.values[2] + ";");
-
-        float x = event.values[0];
-        float y = event.values[1];
-        float z = event.values[2];
-        textX.setText("GX : " + (int) x + " rad/s");
-        textY.setText("GY : " + (int) y + " rad/s");
-        textZ.setText("GZ : " + (int) z + " rad/s");
-
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+//        Xtext.setText("X: " + event.values[0]);
+//        Ytext.setText("Y: " + event.values[1]);
+//        Ztext.setText("Z: " + event.values[2]);
+//        // ntext.setText (event.sensor.getName());
+//        String sensorName = event.sensor.getName();
+//
+//        Log.i(TAG, sensorName + ": X: " + event.values[0] + "; Y: " + event.values[1] + "; Z: " + event.values[2] + ";");
+//
+//        float x = event.values[0];
+//        float y = event.values[1];
+//        float z = event.values[2];
+//        textX.setText("GX : " + (int) x + " rad/s");
+//        textY.setText("GY : " + (int) y + " rad/s");
+//        textZ.setText("GZ : " + (int) z + " rad/s");
+//    }
        // Log.i(TAG, "onSensorChanged: X: "+ event.values[0] + " Y: "+ event.values[1] + " Z: "+ event.values[2]);
         //timer.scheduleAtFixedRate(new TimerTask() {
         //  @Override
@@ -122,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         // }
         // }, 20000, 20000);*/
-    }
+
      /*  timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -146,10 +157,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
 
 
     //  public void savelog() {}

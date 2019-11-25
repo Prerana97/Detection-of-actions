@@ -7,6 +7,22 @@
     tools:context=".MainActivity">
 
 
+    <Button
+        android:id="@+id/service_start"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Start" />
+    <Button
+        android:id="@+id/service_stop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/service_start"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/Xtext"
+        app:layout_constraintVertical_bias="0.268"
+        android:text="Stop" />
+
     <TextView
         android:id="@+id/Xtext"
         android:layout_width="110dp"
