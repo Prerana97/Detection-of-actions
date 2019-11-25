@@ -6,92 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/Xtext"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:text="X"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Ytext"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="161dp"
+        android:layout_marginLeft="161dp"
+        android:layout_marginTop="158dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="89dp"
+        android:onClick="StartSensor"
+        android:text="START"
+        app:layout_constraintBottom_toTopOf="@+id/stop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268"
-        tools:ignore="UnknownId" />
+        tools:ignore="MissingConstraints" />
 
-
-    <TextView
-        android:id="@+id/Ytext"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:text="Y"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/Ztext"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Xtext"
-        app:layout_constraintVertical_bias="0.268" />
-
-    <TextView
-        android:id="@+id/Ztext"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:text="Z"
-        android:textSize="18sp"
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151dp"
+        android:layout_marginLeft="151dp"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginRight="172dp"
+        android:layout_marginBottom="388dp"
+        android:onClick="StopSensor"
+        android:text="STOP"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Ytext"
-        app:layout_constraintVertical_bias="0.268"
-
-        tools:ignore="UnknownId" />
-
-
-    <TextView
-        android:id="@+id/textX"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:text="GX"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/Ztext"
-        app:layout_constraintVertical_bias="0.268"
-        tools:ignore="UnknownId" />
-    <TextView
-        android:id="@+id/textY"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:text="GY"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textX"
-        app:layout_constraintVertical_bias="0.268"
-        tools:ignore="UnknownId" />
-    <TextView
-        android:id="@+id/textZ"
-        android:layout_width="110dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:text="GZ"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textY"
-        app:layout_constraintVertical_bias="0.268"
-        tools:ignore="UnknownId" />
-
-
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
