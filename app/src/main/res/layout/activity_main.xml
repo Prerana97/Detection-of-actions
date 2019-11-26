@@ -44,4 +44,25 @@
         app:layout_constraintTop_toBottomOf="@+id/start"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/textresponse"
+        android:layout_width="0dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+
+        android:layout_marginBottom="241dp"
+        android:gravity="center"
+        android:text=" "
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stop"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints,UnknownId" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

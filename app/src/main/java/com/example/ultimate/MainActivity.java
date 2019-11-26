@@ -32,8 +32,8 @@ import java.net.URLConnection;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
-  //  private static final String TAG;
   private static final String TAG = "MainActivity";
+    TextView textresponse;
 
     private Sensor SA;
     private Sensor SG;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SG = SM.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         acc= new JSONObject();
         gyr= new JSONObject();
+        textresponse = findViewById(R.id.textresponse);
 
 
     }
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Toast.makeText(this, "Started", Toast.LENGTH_SHORT).show();
         SM.registerListener((SensorEventListener) this, SA, SensorManager.SENSOR_DELAY_GAME);
         SM.registerListener((SensorEventListener) this,SG,SensorManager.SENSOR_DELAY_GAME);
+        textresponse.setText("Collecting Sensor Data");
 
 
     }
@@ -72,8 +74,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         jsonArray.put(gyr);
         acc=new JSONObject();
         gyr=new JSONObject();
+
         sendPost(jsonArray);
-           }
+        Log.i("STRING MSG" ,jsonArray.toString() );
+    }
+
     public void sendPost(final JSONArray jsonArray) {
         Thread thread = new Thread(new Runnable() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -106,19 +111,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         while ((responseLine = br.readLine()) != null) {
                             response.append(responseLine.trim());
                         }
-                        System.out.println(response.toString());
+
                         Log.i("STRING MSG" ,response.toString() );
-                        String res=response.toString();
-                        //Toast.makeText(getApplicationContext(),res,Toast.LENGTH_SHORT).show();
+
+                        textresponse.setText("Activity detected: " + response.toString());
+
                     }
                     conn.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
 
         thread.start();
+
     }
 
     @Override
