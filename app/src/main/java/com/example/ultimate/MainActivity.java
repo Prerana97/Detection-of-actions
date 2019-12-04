@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private SensorManager SM;
     JSONObject acc;
     JSONObject gyr;
+
+    DB a;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gyr= new JSONObject();
         textresponse = findViewById(R.id.textresponse);
 
-
+        a = new DB(this);
+        Cursor r = a.getData();
+        Integer m = new Integer(r.getCount());
+        String n = m.toString();
+        Toast.makeText(this, n, Toast.LENGTH_SHORT).show();
     }
     public void StartSensor(View view){
 
