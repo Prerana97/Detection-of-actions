@@ -4,12 +4,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.hardware.Sensor;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     JSONObject gyr;
 
     DB a;
+    Cursor r1;
+    Cursor r2;
+    String logged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,117 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         textresponse = findViewById(R.id.textresponse);
 
         a = new DB(this);
-        Cursor r = a.getData();
-        Integer m = new Integer(r.getCount());
+
+        ContentValues c1 = new ContentValues();
+        c1.put("uname","a");
+        c1.put("upass","b");
+        boolean rec1 = a.infoInsert(c1,"info");
+
+        ContentValues c2 = new ContentValues();
+        c2.put("uname","a");
+        c2.put("activity",1);
+        c2.put("times","a");
+        boolean rec2 = a.infoInsert(c2,"logs");
+
+
+        r1 = a.getLogs();
+        r2 = a.getInfo();
+        Integer m = new Integer(r2.getCount());
         String n = m.toString();
-        Toast.makeText(this, n, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, "Info count: " + n, Toast.LENGTH_SHORT).show();
     }
+
+    public void Login(View view){
+
+        EditText start1 = findViewById(R.id.uname);
+        String user = start1.getText().toString();
+        EditText start2 = findViewById(R.id.upass);
+        String pass = start2.getText().toString();
+
+        if (user.length() == 0 || pass.length() == 0) {
+            Toast.makeText(this, "Some Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int p = 1;
+        while(r2.moveToNext()) {
+            String uname = r2.getString(1);
+            String upass = r2.getString(2);
+            p = 2;
+            if (user.equals(uname) && pass.equals(upass)) {
+                Toast.makeText(this, "Logged In", Toast.LENGTH_SHORT).show();
+                logged = uname;
+            }
+        }
+
+        if (p == 1) {
+            Toast.makeText(this, "No user", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        start1.setVisibility(View.GONE);
+
+        View start = findViewById(R.id.start);
+        start.setVisibility(View.VISIBLE);
+        View stop = findViewById(R.id.stop);
+        stop.setVisibility(View.VISIBLE);
+        View login = findViewById(R.id.signin);
+        login.setVisibility(View.GONE);
+        View signup = findViewById(R.id.signup);
+        signup.setVisibility(View.GONE);
+
+        start2.setVisibility(View.GONE);
+
+    }
+
+    public void SignUp(View view){
+
+        EditText start1 = findViewById(R.id.uname);
+        String user = start1.getText().toString();
+        EditText start2 = findViewById(R.id.upass);
+        String pass = start2.getText().toString();
+
+        if (user.length() == 0 || pass.length() == 0) {
+            Toast.makeText(this, "Some Error", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        while(r2.moveToNext()) {
+            String uname = r2.getString(1);
+            if (user.equals(uname)) {
+                Toast.makeText(this, "User Exists", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        a = new DB(this);
+        ContentValues c1 = new ContentValues();
+        c1.put("uname",user);
+        c1.put("upass",pass);
+        boolean rec1 = a.infoInsert(c1,"info");
+        if (rec1) {
+            Toast.makeText(this, "New User", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "New User not created", Toast.LENGTH_SHORT).show();
+        }
+
+        start1.setVisibility(View.GONE);
+
+        View start = findViewById(R.id.start);
+        start.setVisibility(View.VISIBLE);
+        View stop = findViewById(R.id.stop);
+        stop.setVisibility(View.VISIBLE);
+        View login = findViewById(R.id.signin);
+        login.setVisibility(View.GONE);
+        View signup = findViewById(R.id.signup);
+        signup.setVisibility(View.GONE);
+
+        start2.setVisibility(View.GONE);
+
+    }
+
+
     public void StartSensor(View view){
 
         Toast.makeText(this, "Started", Toast.LENGTH_SHORT).show();
