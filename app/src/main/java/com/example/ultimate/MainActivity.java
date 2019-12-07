@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         while(r2.moveToNext()) {
             String uname = r2.getString(1);
             String upass = r2.getString(2);
-            p = 2;
             if (user.equals(uname) && pass.equals(upass)) {
                 Toast.makeText(this, "Logged In", Toast.LENGTH_SHORT).show();
                 logged = uname;
+                p = 2;
             }
         }
 
