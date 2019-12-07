@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         r1 = a.getLogs();
         r2 = a.getInfo();
+
         Integer m = new Integer(r2.getCount());
         String n = m.toString();
 
@@ -102,12 +103,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         start1.setVisibility(View.GONE);
 
+        View ShowActivity=findViewById(R.id.show_act);
+        ShowActivity.setVisibility(View.VISIBLE);
+
         View start = findViewById(R.id.start);
         start.setVisibility(View.VISIBLE);
+
         View stop = findViewById(R.id.stop);
         stop.setVisibility(View.VISIBLE);
+
         View login = findViewById(R.id.signin);
         login.setVisibility(View.GONE);
+
         View signup = findViewById(R.id.signup);
         signup.setVisibility(View.GONE);
 
@@ -137,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         a = new DB(this);
         ContentValues c1 = new ContentValues();
+
         c1.put("uname",user);
         c1.put("upass",pass);
         boolean rec1 = a.infoInsert(c1,"info");
@@ -152,12 +160,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         start.setVisibility(View.VISIBLE);
         View stop = findViewById(R.id.stop);
         stop.setVisibility(View.VISIBLE);
+        View ShowActivity=findViewById(R.id.show_act);
+        ShowActivity.setVisibility(view.VISIBLE);
         View login = findViewById(R.id.signin);
         login.setVisibility(View.GONE);
         View signup = findViewById(R.id.signup);
         signup.setVisibility(View.GONE);
 
         start2.setVisibility(View.GONE);
+
 
     }
 
@@ -168,6 +179,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SM.registerListener((SensorEventListener) this, SA, SensorManager.SENSOR_DELAY_GAME);
         SM.registerListener((SensorEventListener) this,SG,SensorManager.SENSOR_DELAY_GAME);
         textresponse.setText("Collecting Sensor Data");
+
+
+    }
+    public void ShowActivity(View view)
+    {   Cursor act=a.getLogs();
+
+        Log.i("::::::::::" ,"hello" );
+        textresponse.setText("Last 5 Activities::\n");
+        int i=0;
+
+        while(act.moveToNext() && i<5 )
+        {
+        if(logged.equals(act.getString(1)))
+        {   i+=1;
+            textresponse.append(act.getString(2));
+            textresponse.append("\n");
+            Log.i("::::::::::" ,act.getString(2) );
+
+        }
+        }
+
+
 
 
     }
@@ -219,9 +252,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             response.append(responseLine.trim());
                         }
 
-                        Log.i("STRING MSG" ,response.toString() );
 
+                        Log.i("::::::::::" ,response.toString() );
                         textresponse.setText("Activity detected: " + response.toString());
+                        ContentValues c2 = new ContentValues();
+                        c2.put("uname",logged);
+                        c2.put("activity",response.toString());
+                        a.infoInsert(c2,"logs");
+
+
+
 
                     }
                     conn.disconnect();

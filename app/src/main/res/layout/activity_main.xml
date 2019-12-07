@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="ShowActivity"
     tools:context=".MainActivity">
 
 
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
         android:layout_marginLeft="161dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
         android:layout_marginBottom="388dp"
@@ -41,6 +43,7 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/start"
         tools:ignore="MissingConstraints" />
@@ -55,7 +58,6 @@
         android:layout_marginTop="300dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
-        android:layout_marginBottom="50dp"
         android:onClick="Login"
         android:text="Login"
         app:layout_constraintBottom_toTopOf="@+id/signup"
@@ -70,13 +72,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
         android:layout_marginLeft="161dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="162dp"
         android:layout_marginRight="162dp"
-        android:layout_marginBottom="388dp"
+        android:layout_marginBottom="300dp"
         android:onClick="SignUp"
         android:text="SIGN UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signin"
         tools:ignore="MissingConstraints" />
@@ -84,15 +88,19 @@
     <TextView
         android:id="@+id/textresponse"
         android:layout_width="0dp"
-        android:layout_height="79dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
 
-        android:layout_marginBottom="241dp"
+        android:clickable="false"
         android:gravity="center"
+        android:isScrollContainer="true"
+        android:maxLines="7"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollHorizontally="true"
         android:text=" "
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,28 +108,68 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stop"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.322"
         tools:ignore="MissingConstraints,UnknownId" />
 
     <EditText
         android:id="@+id/uname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="99dp"
+        android:layout_marginLeft="99dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginRight="99dp"
+        android:layout_marginBottom="31dp"
+        android:contentDescription="Username"
         android:ems="10"
+        android:hint="Username"
         android:inputType="textPersonName"
-        android:text=""
-        tools:layout_editor_absoluteX="79dp"
-        tools:layout_editor_absoluteY="128dp" />
+        app:layout_constraintBottom_toTopOf="@+id/upass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/upass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uname"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="573dp" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/show_act"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginLeft="161dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="193dp"
+        android:text="Recent Activities"
+        android:onClick="ShowActivity"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stop"
+        app:layout_constraintVertical_bias="0.125" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

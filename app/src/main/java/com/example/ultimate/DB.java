@@ -19,7 +19,7 @@ public class DB  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table info (id INTEGER primary key autoincrement not null,uname TEXT,upass TEXT)");
-        db.execSQL("create table logs (id INTEGER primary key autoincrement not null,uname TEXT,activity INTEGER, times TEXT)");
+        db.execSQL("create table logs (id INTEGER primary key autoincrement not null,uname TEXT,activity INTEGER");
     }
 
     @Override
