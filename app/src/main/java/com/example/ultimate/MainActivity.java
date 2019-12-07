@@ -64,24 +64,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         a = new DB(this);
 
-        ContentValues c1 = new ContentValues();
-        c1.put("uname","a");
-        c1.put("upass","b");
-        boolean rec1 = a.infoInsert(c1,"info");
-
-        ContentValues c2 = new ContentValues();
-        c2.put("uname","a");
-        c2.put("activity",1);
-        c2.put("times","a");
-        boolean rec2 = a.infoInsert(c2,"logs");
-
-
         r1 = a.getLogs();
         r2 = a.getInfo();
         Integer m = new Integer(r2.getCount());
         String n = m.toString();
 
-        Toast.makeText(this, "Info count: " + n, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "User count: " + n, Toast.LENGTH_SHORT).show();
     }
 
     public void Login(View view){
