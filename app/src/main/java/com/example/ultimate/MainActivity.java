@@ -79,16 +79,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         EditText start2 = findViewById(R.id.upass);
         String pass = start2.getText().toString();
 
-        Toast.makeText(this, user, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, pass, Toast.LENGTH_SHORT).show();
-
         if (user.length() == 0 || pass.length() == 0) {
             Toast.makeText(this, "Some Error", Toast.LENGTH_SHORT).show();
             return;
         }
 
         int p = 1;
+
         r2.moveToFirst();
+        r2.moveToPrevious();
         while(r2.moveToNext()) {
             String uname = r2.getString(1);
             String upass = r2.getString(2);
@@ -99,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         r2.moveToFirst();
+        r2.moveToPrevious();
 
         if (p == 1) {
             Toast.makeText(this, "No user", Toast.LENGTH_SHORT).show();
@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
+        r2.moveToFirst();
+        r2.moveToPrevious();
         while(r2.moveToNext()) {
             String uname = r2.getString(1);
             if (user.equals(uname)) {
@@ -140,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         }
         r2.moveToFirst();
+        r2.moveToPrevious();
 
         a = new DB(this);
         ContentValues c1 = new ContentValues();
